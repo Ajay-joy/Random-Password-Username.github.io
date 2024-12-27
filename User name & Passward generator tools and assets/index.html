@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Username & Password Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Generate a <br> <span>Random Username & Password</span></h1>
+
+        <div class="display">
+            <input type="text" id="username" placeholder="Username">
+            <img src="image/copy.png" onclick="copyUsername()">
+        </div>
+
+        <button onclick="createUsername()"><img src="image/generate.png">Generate Username</button>
+
+        <div class="display">
+            <input type="text" id="password" placeholder="Password">
+            <img src="image/copy.png" onclick="copyPassword()">
+        </div>
+
+        <button onclick="createPassword()"><img src="image/generate.png">Generate Password</button>
+
+        <!-- Alert Container -->
+        <div id="alert-container" class="alert-container"></div>
+    </div>
+
+    <script>
+        const usernameBox = document.getElementById("username");
+        const passwordBox = document.getElementById("password");
+        const alertContainer = document.getElementById("alert-container");
+        const passwordLength = 19;
+        const usernameLength = 7;
+
+        const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const lowerCase = "abcdefghijklmnopqrstuvwxyz";
+        const numbers = "0123456789";
+        const symbols = "!@#$%^&*()-_=+[]{};:~\/|><?";
+        const nameFragments = [
+            "Ace", "Bolt", "Jazz", "Neo", "Sky", "Storm", "Vibe", "Echo", "Zane", "Blaze",
+            "Alpha", "Cipher", "Drift", "Ember", "Frost", "Glint", "Hawk", "Jolt", "Kinetic",
+            "Lynx", "Nova", "Onyx", "Pulse", "Quasar", "Rift", "Sable", "Titan", "Vortex", "Wraith",
+            "Arc", "Cinder", "Dynamo", "Flare", "Grit", "Halo", "Ignite", "Jet", "Kilo", "Lunar",
+            "Moxie", "Nimbus", "Orion", "Phantom", "Quill", "Rune", "Surge", "Thorne", "Ultraviolet",
+            "Viper", "Wave", "Zenith", "Alloy", "Brisk", "Crux", "Flux", "Glaze", "Havoc", "Ink",
+            "Jettison", "Kine", "Lumen", "Mirage", "Nebula", "Omega", "Quark", "Raptor", "Shadow",
+            "Tidal", "Umber", "Wild", "Xeric", "Yonder", "Aero", "Blade", "Delta", "Glide", "Helix",
+            "Ion", "Jinx", "Koru", "Luna", "Mech", "Pyro", "Quake", "Rogue", "Solar", "Tempest",
+            "Unity", "Warden", "Xeno", "Yara", "Zephyr", "Bandit", "Chisel", "Fathom", "Ghost",
+            "Jade", "Koi", "Lush", "Opal", "Prism", "Raze", "Sphinx", "Thane", "Umbra", "Valor",
+            "Xander", "Yawn", "Aegis", "Brim", "Chroma", "Faze", "Hex", "Infuse", "Jett", "Kinesis",
+            "Lumi", "Mirth", "Nomad", "Obsidian", "Phantom", "Thrust", "Ultralight", "Vapor", "Wisp",
+            "Xcite", "Zest", "Apex", "Beacon", "Clarity", "Glimpse", "Ice", "Kuro", "Synergy",
+            "Tide", "Vector", "Azure", "Bane", "Bluewhale", "Leo", "Ghost", "Blake", "Giant", "Asto", "Loon",
+            "Mecha", "Witch", "Goblin", "Wizard", "Healer", "Dragon", "Pekka", "Miner", "Yeti", "Titan", "Valkyrie",
+            "Hog", "Hound", "Golem", "Druid", "Warden", "Bat", "Oreo"];
+
+        const allChars = upperCase + lowerCase + numbers + symbols;
+
+        function createUsername() {
+            let username = nameFragments[Math.floor(Math.random() * nameFragments.length)];
+            username += numbers[Math.floor(Math.random() * numbers.length)];
+            username += symbols[Math.floor(Math.random() * symbols.length)];
+            username += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+
+            // Adjust length if necessary
+            while (username.length < usernameLength) {
+                username += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+            }
+            usernameBox.value = username;
+        }
+
+        function createPassword() {
+            let password = "";
+            password += upperCase[Math.floor(Math.random() * upperCase.length)];
+            password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+            password += numbers[Math.floor(Math.random() * numbers.length)];
+            password += symbols[Math.floor(Math.random() * symbols.length)];
+
+            while (password.length < passwordLength) {
+                password += allChars[Math.floor(Math.random() * allChars.length)];
+            }
+
+            passwordBox.value = password;
+        }
+
+        function copyUsername() {
+            usernameBox.select();
+            document.execCommand("copy");
+            showAlert("Username copied");
+        }
+
+        function copyPassword() {
+            passwordBox.select();
+            document.execCommand("copy");
+            showAlert("Password copied");
+        }
+
+        function showAlert(message) {
+            alertContainer.textContent = message;
+            alertContainer.style.backgroundColor = "#019f55";
+            alertContainer.style.right = "20px";
+            setTimeout(() => {
+                alertContainer.style.right = "-300px";
+            }, 1000);
+        }
+    </script>
+
+</body>
+
+</html>
